@@ -45,6 +45,7 @@ A curated collection of **the most widely-impacting & reliable** Linux LPE explo
 | 08 | CVE-2026-46300 | Fragnesia | 内核 XFRM ESP-in-TCP 页缓存写 | Kernel 2017-01 ~ 2026-05 | `./08fragnesia/fragnesia` |
 | 09 | CVE-2026-46333 | ssh-keysign-pwn | ptrace 竞态 / pidfd_getfd FD 窃取 | 全部发行版 (2020~2026-05) | `cd 09key-sign-pwn && bash exploit.sh` |
 | 10 | — | dirty-merge | 内核页缓存合并写原语 | — | 见目录内 README |
+| 11 | CVE-2026-43494 | PinTheft | 内核 RDS zerocopy 双重释放 | Kernel 2012-01 ~ 2026-05 | `./11pintheft/poc` |
 
 ---
 
@@ -61,12 +62,14 @@ ll-privesc-kit/
 ├── 07dirtyfrag/     CVE-2026-43284/43500 — Dirty Frag (ESP/RxRPC)
 ├── 08fragnesia/     CVE-2026-46300    — Fragnesia (XFRM ESP-in-TCP)
 ├── 09key-sign-pwn/  CVE-2026-46333    — ssh-keysign / chage FD theft
-...(以上都是提权exp）
+├── 10dirty-merge/   —            — dirty-merge (页缓存合并写原语)
+├── 11pintheft/      CVE-2026-43494 — PinTheft (RDS zerocopy double-free)
 │
 ├── 🛠️ linpeas.sh / lin2026.sh            ← linpeas 为最新官方同步版，llpeas 为旧版保留
 ├── 🛠️ pspy{32,64,64s}                    ← 进程监控
 ├── 🛠️ busybox                            ← 静态 BusyBox
 ├── 🛠️ socat                              ← 静态 socat
+├── 🛠️ strace                             ← 静态编译 strace
 ├── 🛠️ subrute.sh                         ← su 字典爆破
 ├── 🛠️ generate_by_username.sh + muban.key ← 用户密码字典生成
 │
@@ -85,7 +88,7 @@ flowchart TD
     B --> B2["pspy64 — 监控定时任务"]
     B --> B3["uname -r; sudo -V — 版本确认"]
     B --> C{"🎯 匹配漏洞"}
-    C -->|"内核匹配"| D["01~10 内核漏洞"]
+    C -->|"内核匹配"| D["01~11 内核漏洞"]
     C -->|"polkit 存在"| E["03pwnkit"]
     C -->|"sudo 版本匹配"| F["04chwoot / 06sudo3165"]
     C -->|"PackageKit 匹配"| G["05pack2theroot"]
@@ -133,6 +136,7 @@ flowchart TD
 | `pspy32` / `pspy64` / `pspy64s` | 无需 root 的实时进程监控，捕获定时任务中出现的密码或可劫持脚本路径 |
 | `busybox` | 静态编译 BusyBox，靶机缺 `wget`、`nc`、`awk` 等基础命令时直接顶上 |
 | `socat` | 静态编译 socat，支持全双工通信、加密隧道、端口转发 |
+| `strace` | 静态编译 strace，用于跟踪系统调用、调试漏洞利用过程 |
 | `subrute.sh` | 基于字典对 `su` 进行本地密码爆破 |
 | `generate_by_username.sh` + `muban.key` | 使用数百条用户名变体模板生成专属密码字典 |
 | `reverse.php` / `reverse.txt` | pentestmonkey 经典 PHP 反弹 Shell（内容相同，扩展名不同；需修改 IP/端口）|

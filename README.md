@@ -45,7 +45,7 @@ A curated collection of **the most widely-impacting & reliable** Linux LPE explo
 | 08 | CVE-2026-46300 | Fragnesia | 内核 XFRM ESP-in-TCP 页缓存写 | Kernel 2017-01 ~ 2026-05 | `./08fragnesia/fragnesia` |
 | 09 | CVE-2026-46333 | ssh-keysign-pwn | ptrace 竞态 / pidfd_getfd FD 窃取 | 全部发行版 (2020~2026-05) | `cd 09key-sign-pwn && bash exploit.sh` |
 | 10 | — | dirty-merge | 内核页缓存合并写原语 | — | 见目录内 README |
-| 11 | CVE-2026-43494 | PinTheft | 内核 RDS zerocopy 双重释放 | Kernel 2012-01 ~ 2026-05 | `./11pintheft/poc` |
+| 11 | CVE-2026-43494 | PinTheft | 内核 RDS zerocopy 双重释放 | - | `./11pintheft/poc` |
 
 ---
 

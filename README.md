@@ -46,6 +46,7 @@ A curated collection of **the most widely-impacting & reliable** Linux LPE explo
 | 09 | CVE-2026-46333 | ssh-keysign-pwn | ptrace 竞态 / pidfd_getfd FD 窃取 | 全部发行版 (2020~2026-05) | 见 `09key-sign-pwn/read.c` |
 | 10 | — | dirty-merge | 内核页缓存合并写原语 | — | 见目录内 README |
 | 11 | CVE-2026-43494 | PinTheft | 内核 RDS zerocopy 双重释放 | - | `./11pintheft/poc` |
+| 12 | CVE-2026-46331 | Packet Edit Meme | net/sched act_pedit 页缓存写 | Kernel 5.18 ~ 7.1-rc6 | `./12packet-edit-meme/packet_edit_meme` |
 
 ---
 
@@ -64,6 +65,7 @@ ll-privesc-kit/
 ├── 09key-sign-pwn/  CVE-2026-46333    — ssh-keysign / chage FD theft
 ├── 10dirty-merge/   —            — dirty-merge (页缓存合并写原语)
 ├── 11pintheft/      CVE-2026-43494 — PinTheft (RDS zerocopy double-free)
+├── 12packet-edit-meme/ CVE-2026-46331 — Packet Edit Meme (act_pedit page-cache)
 │
 ├── 🛠️ linpeas.sh / llpeas.sh             ← linpeas 为最新官方同步版，llpeas 为旧版保留
 ├── 🛠️ pspy{32,64,64s}                    ← 进程监控
@@ -90,6 +92,7 @@ chmod +x 03pwnkit/CVE-2021-4034/cve-2021-4034.sh 06sudo3165/CVE-2021-3156/exploi
 chmod +x 01copyfail/copyfail 02dirtypipe/root 04chwoot/chwoot.sh 05pack2theroot/cve_2026_41651.py
 chmod +x 07dirtyfrag/dirtyfrag 08fragnesia/fragnesia 11pintheft/poc
 chmod +x 10dirty-merge/dirty_merge 10dirty-merge/ethtool 10dirty-merge/exploit.sh
+chmod +x 12packet-edit-meme/packet_edit_meme 12packet-edit-meme/test_cve
 ```
 
 ---
@@ -103,7 +106,7 @@ flowchart TD
     B --> B2["pspy64 — 监控定时任务"]
     B --> B3["uname -r; sudo -V — 版本确认"]
     B --> C{"🎯 匹配漏洞"}
-    C -->|"内核匹配"| D["01~11 内核漏洞"]
+    C -->|"内核匹配"| D["01~12 内核漏洞"]
     C -->|"polkit 存在"| E["03pwnkit"]
     C -->|"sudo 版本匹配"| F["04chwoot / 06sudo3165"]
     C -->|"PackageKit 匹配"| G["05pack2theroot"]

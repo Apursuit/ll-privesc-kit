@@ -37,13 +37,13 @@ A curated collection of **the most widely-impacting & reliable** Linux LPE explo
 |---|-----|----------|--------|----------|------------|
 | 01 | CVE-2026-31431 | Copy Fail | 内核 AF_ALG 页缓存写原语 | Kernel 4.14 ~ 2026-04 | `./01copyfail/copyfail` |
 | 02 | CVE-2022-0847 | Dirty Pipe | 内核 pipe 页缓存覆写 | Kernel 5.8 ~ 5.16.11 | `./02dirtypipe/root` |
-| 03 | CVE-2021-4034 | PwnKit | polkit pkexec OOB 写 | 全部发行版 (2009~2022) | `cd 03pwnkit && make && ./cve-2021-4034` |
+| 03 | CVE-2021-4034 | PwnKit | polkit pkexec OOB 写 | 全部发行版 (2009~2022) | `cd 03pwnkit/CVE-2021-4034 && make && ./cve-2021-4034` |
 | 04 | CVE-2025-32463 | chwoot | sudo -R 路径穿越 | sudo 1.9.14 ~ 1.9.17 | `bash 04chwoot/chwoot.sh` |
 | 05 | CVE-2026-41651 | pack2theroot | PackageKit TOCTOU | PackageKit < 1.3.5 | `python3 05pack2theroot/cve_2026_41651.py` |
-| 06 | CVE-2021-3156 | Baron Samedit | sudo 堆溢出 | sudo 1.8.2 ~ 1.9.5p1 | `python3 06sudo3165/exploit_nss.py` |
+| 06 | CVE-2021-3156 | Baron Samedit | sudo 堆溢出 | sudo 1.8.2 ~ 1.9.5p1 | `python3 06sudo3165/CVE-2021-3156/exploit_nss.py` |
 | 07 | CVE-2026-43284 / CVE-2026-43500 | Dirty Frag | 内核 xfrm-ESP / RxRPC 页缓存写 | Kernel 2017-01 ~ 2026-05 | `./07dirtyfrag/dirtyfrag` |
 | 08 | CVE-2026-46300 | Fragnesia | 内核 XFRM ESP-in-TCP 页缓存写 | Kernel 2017-01 ~ 2026-05 | `./08fragnesia/fragnesia` |
-| 09 | CVE-2026-46333 | ssh-keysign-pwn | ptrace 竞态 / pidfd_getfd FD 窃取 | 全部发行版 (2020~2026-05) | `cd 09key-sign-pwn && bash exploit.sh` |
+| 09 | CVE-2026-46333 | ssh-keysign-pwn | ptrace 竞态 / pidfd_getfd FD 窃取 | 全部发行版 (2020~2026-05) | 见 `09key-sign-pwn/read.c` |
 | 10 | — | dirty-merge | 内核页缓存合并写原语 | — | 见目录内 README |
 | 11 | CVE-2026-43494 | PinTheft | 内核 RDS zerocopy 双重释放 | - | `./11pintheft/poc` |
 
@@ -65,7 +65,7 @@ ll-privesc-kit/
 ├── 10dirty-merge/   —            — dirty-merge (页缓存合并写原语)
 ├── 11pintheft/      CVE-2026-43494 — PinTheft (RDS zerocopy double-free)
 │
-├── 🛠️ linpeas.sh / lin2026.sh            ← linpeas 为最新官方同步版，llpeas 为旧版保留
+├── 🛠️ linpeas.sh / llpeas.sh             ← linpeas 为最新官方同步版，llpeas 为旧版保留
 ├── 🛠️ pspy{32,64,64s}                    ← 进程监控
 ├── 🛠️ busybox                            ← 静态 BusyBox
 ├── 🛠️ socat                              ← 静态 socat
@@ -75,6 +75,21 @@ ll-privesc-kit/
 │
 ├── 🔑 {5000,10000,20000,100000}.txt      ← rockyou.txt 高频密码
 ├── 🔗 LINKS.md                       ← 常用提权资源链接
+```
+
+---
+
+## 🔐 执行权限
+
+仓库内的脚本和预编译工具已记录可执行权限。若通过压缩包下载、跨系统拷贝或上传到靶机后权限丢失，可按需恢复：
+
+```bash
+chmod +x linpeas.sh llpeas.sh pspy32 pspy64 pspy64s busybox socat strace
+chmod +x subrute.sh generate_by_username.sh sync_linpeas.sh
+chmod +x 03pwnkit/CVE-2021-4034/cve-2021-4034.sh 06sudo3165/CVE-2021-3156/exploit_nss.py
+chmod +x 01copyfail/copyfail 02dirtypipe/root 04chwoot/chwoot.sh 05pack2theroot/cve_2026_41651.py
+chmod +x 07dirtyfrag/dirtyfrag 08fragnesia/fragnesia 11pintheft/poc
+chmod +x 10dirty-merge/dirty_merge 10dirty-merge/ethtool 10dirty-merge/exploit.sh
 ```
 
 ---
@@ -139,7 +154,7 @@ flowchart TD
 | `strace` | 静态编译 strace，用于跟踪系统调用、调试漏洞利用过程 |
 | `subrute.sh` | 基于字典对 `su` 进行本地密码爆破 |
 | `generate_by_username.sh` + `muban.key` | 使用数百条用户名变体模板生成专属密码字典 |
-| `reverse.php` / `reverse.txt` | pentestmonkey 经典 PHP 反弹 Shell（内容相同，扩展名不同；需修改 IP/端口）|
+| `reverse.php` | pentestmonkey 经典 PHP 反弹 Shell（需修改 IP/端口）|
 | `{5000,10000,20000,100000}.txt` | rockyou.txt 前 N 条高频密码 |
 
 ---

@@ -47,6 +47,8 @@ A curated collection of **the most widely-impacting & reliable** Linux LPE explo
 | 10 | — | dirty-merge | 内核页缓存合并写原语 | — | 见目录内 README |
 | 11 | CVE-2026-43494 | PinTheft | 内核 RDS zerocopy 双重释放 | - | `./11pintheft/poc` |
 | 12 | CVE-2026-46331 | Packet Edit Meme | net/sched act_pedit 页缓存写 | Kernel 5.18 ~ 7.1-rc6 | `./12packet-edit-meme/packet_edit_meme` |
+| 13 | CVE-2026-46331 | Pedit COW | net/sched act_pedit 部分COW页缓存损坏 | Kernel 5.18 ~ 7.1-rc6 | `./13pedit-cow/poc` |
+| 14 | CVE-2026-43503 | DirtyClone | 内核 ESP-in-UDP page-cache corruption | Kernel 7.1-rc1 ~ rc4 | `python3 14dirty-clone/dirtyclone.py` |
 
 ---
 
@@ -66,6 +68,8 @@ ll-privesc-kit/
 ├── 10dirty-merge/   —            — dirty-merge (页缓存合并写原语)
 ├── 11pintheft/      CVE-2026-43494 — PinTheft (RDS zerocopy double-free)
 ├── 12packet-edit-meme/ CVE-2026-46331 — Packet Edit Meme (act_pedit page-cache)
+├── 13pedit-cow/     CVE-2026-46331 — Pedit COW (act_pedit partial COW)
+├── 14dirty-clone/   CVE-2026-43503 — DirtyClone (ESP-in-UDP page-cache)
 │
 ├── 🛠️ linpeas.sh / llpeas.sh             ← linpeas 为最新官方同步版，llpeas 为旧版保留
 ├── 🛠️ pspy{32,64,64s}                    ← 进程监控
@@ -93,6 +97,7 @@ chmod +x 01copyfail/copyfail 02dirtypipe/root 04chwoot/chwoot.sh 05pack2theroot/
 chmod +x 07dirtyfrag/dirtyfrag 08fragnesia/fragnesia 11pintheft/poc
 chmod +x 10dirty-merge/dirty_merge 10dirty-merge/ethtool 10dirty-merge/exploit.sh
 chmod +x 12packet-edit-meme/packet_edit_meme 12packet-edit-meme/test_cve
+chmod +x 13pedit-cow/poc 14dirty-clone/dirtyclone.py
 ```
 
 ---
@@ -106,7 +111,7 @@ flowchart TD
     B --> B2["pspy64 — 监控定时任务"]
     B --> B3["uname -r; sudo -V — 版本确认"]
     B --> C{"🎯 匹配漏洞"}
-    C -->|"内核匹配"| D["01~12 内核漏洞"]
+    C -->|"内核匹配"| D["01~14 内核漏洞"]
     C -->|"polkit 存在"| E["03pwnkit"]
     C -->|"sudo 版本匹配"| F["04chwoot / 06sudo3165"]
     C -->|"PackageKit 匹配"| G["05pack2theroot"]

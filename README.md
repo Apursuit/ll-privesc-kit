@@ -76,6 +76,7 @@ ll-privesc-kit/
 ├── 🛠️ busybox                            ← 静态 BusyBox
 ├── 🛠️ socat                              ← 静态 socat
 ├── 🛠️ strace                             ← 静态编译 strace
+├── 🛠️ bash-static                        ← 静态编译 bash
 ├── 🛠️ subrute.sh                         ← su 字典爆破
 ├── 🛠️ generate_by_username.sh + muban.key ← 用户密码字典生成
 │
@@ -90,7 +91,7 @@ ll-privesc-kit/
 仓库内的脚本和预编译工具已记录可执行权限。若通过压缩包下载、跨系统拷贝或上传到靶机后权限丢失，可按需恢复：
 
 ```bash
-chmod +x linpeas.sh llpeas.sh pspy32 pspy64 pspy64s busybox socat strace
+chmod +x linpeas.sh llpeas.sh pspy32 pspy64 pspy64s busybox socat strace bash-static
 chmod +x subrute.sh generate_by_username.sh sync_linpeas.sh
 chmod +x 03pwnkit/CVE-2021-4034/cve-2021-4034.sh 06sudo3165/CVE-2021-3156/exploit_nss.py
 chmod +x 01copyfail/copyfail 02dirtypipe/root 04chwoot/chwoot.sh 05pack2theroot/cve_2026_41651.py
@@ -160,6 +161,7 @@ flowchart TD
 | `busybox` | 静态编译 BusyBox，靶机缺 `wget`、`nc`、`awk` 等基础命令时直接顶上 |
 | `socat` | 静态编译 socat，支持全双工通信、加密隧道、端口转发 |
 | `strace` | 静态编译 strace，用于跟踪系统调用、调试漏洞利用过程 |
+| `bash-static` | 静态编译 bash，靶机缺完备 shell 环境时直接顶上 |
 | `subrute.sh` | 基于字典对 `su` 进行本地密码爆破 |
 | `generate_by_username.sh` + `muban.key` | 使用数百条用户名变体模板生成专属密码字典 |
 | `reverse.php` | pentestmonkey 经典 PHP 反弹 Shell（需修改 IP/端口）|
